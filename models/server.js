@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-//const { dbConnection } = require('../database/config');
-//const  fileUpload = require('express-fileupload');
+const { sequelize } = require('../database/config');
 
 class Server{
 
@@ -11,32 +10,38 @@ class Server{
 
         this.paths = {
             auth: '/api/auth',
+            users: '/api/users'
         };
 
-        //conectar con la base de datos
+        //try bd connection
         this.connectarDB();
 
         //Middlewares
         this.middlewares();
+        //expose routes
         this.routes();
     }
     async connectarDB(){
-        //await dbConnection();
+
+        await sequelize.authenticate();
+        await sequelize.sync();
+        
     }
     middlewares(){
         //CORS
         this.app.use(cors());
 
-        //lectura y parseo de body
+        //read and parse body
         this.app.use(express.json());
 
     }
     routes(){
         this.app.use( this.paths.auth, require('../routes/auth'));
+        this.app.use( this.paths.users, require('../routes/users'));
     }
     listen(){
         this.app.listen(this.port, ()=>{
-            console.log('servidor corriendo en puerto', this.port);
+            console.log('Server running on port...', this.port);
         })
     }
 
