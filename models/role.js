@@ -10,6 +10,15 @@ const Role = sequelize.define('Roles',{
         type: DataTypes.INTEGER,
         defaultValue: 1
     },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+      }
+    
 }, { tableName: 'roles' })
 
 
