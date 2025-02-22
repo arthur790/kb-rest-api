@@ -5,10 +5,9 @@ const User = require('../models/user');
 const validateJWT = async(req = request, res = response, next) =>{
     const token = req.header('x-token');
 
-    console.log(token);
     if (!token){
         return res.status(401).json({
-            msj: 'se requiere un token en la petición'
+            msg: 'se requiere un token en la petición'
         });
     }
     
@@ -20,14 +19,14 @@ const validateJWT = async(req = request, res = response, next) =>{
 
         if (!usuario){
             return res.status(401).json({
-                msj: 'el token no es válido'
+                msg: 'el token no es válido'
             })
         }
 
         //verificar si el uid tiene estado en true
         if (!usuario.status){
             return res.status(401).json({
-                msj: 'el token no es válido'
+                msg: 'el token no es válido'
             })
         }
 
@@ -39,7 +38,7 @@ const validateJWT = async(req = request, res = response, next) =>{
     }catch(err){
         console.log(err);
         res.status(401).json({
-            msj: 'el token no es válido'
+            msg: 'el token no es válido'
         })
     }
 }

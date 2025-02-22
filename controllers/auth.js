@@ -18,20 +18,20 @@ const login = async(req, res = response) =>{
 
         if(!usuario){
             return res.status(400).json({
-                msj: 'Lo sentimos al parecer tu usuario o password son incorrectos'
+                msg: 'Lo sentimos al parecer tu usuario o password son incorrectos'
             })
         }
 
         if(usuario.status != 1){
             return res.status(400).json({
-                msj: 'Lo sentimos al parecer tu usuario o password son incorrectos'
+                msg: 'Lo sentimos al parecer tu usuario o password son incorrectos'
             })
         }
         const isValidPassword = bcryptjs.compareSync(password, usuario.password);
 
         if(!isValidPassword){
             return res.status(401).json({
-                msj: 'Lo sentimos al parecer tu usuario o password son incorrectos'
+                msg: 'Lo sentimos al parecer tu usuario o password son incorrectos'
             })
         }
 
@@ -46,7 +46,8 @@ const login = async(req, res = response) =>{
     }catch(error){
         console.log(error);
         res.status(500).json({
-            msj: 'Algo salio mal, hable con el administrador'
+            msg: 'Algo salio mal, hable con el administrador',
+            error
         });
     }
     
